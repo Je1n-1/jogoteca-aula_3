@@ -1,0 +1,26 @@
+
+{%extends "template.html" %}
+{%block content %}
+  <!-- Formulário para criar um novo jogo -->
+  <form action="/criar" method="post" style="text-align: left;">
+    <fieldset>
+    <!-- Campo para o nome do jogo -->
+    <div class="form-group" style="text-align: left;">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" class="form-control">
+    </div>
+    <!-- Campo para a categoria do jogo -->
+    <div class="form-group" style="text-align: left;">
+      <label for="categoria">Categoria</label>
+      <input type="text" id="categoria" name="categoria" class="form-control">
+    </div>
+    <!-- Campo para o console do jogo -->
+    <div class="form-group" style="text-align: left;">
+      <label for="console">Console</label>
+      <input type="text" id="console" name="console" class="form-control">
+    </div>
+    <!-- Botão para enviar o formulário -->
+    <button type="submit" class="btn btn-primary btn-salvar" style="float: left;">Salvar</button>
+    </fieldset>
+  </form>
+{% endblock %}
