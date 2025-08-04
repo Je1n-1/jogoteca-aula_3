@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session, flash
 
 # Classe que representa um jogo
 class Jogo:
@@ -14,6 +14,7 @@ jogo3 = Jogo('Mortal Kombat', 'Luta', 'PS2')
 lista = [jogo1, jogo2, jogo3]  # Lista de jogos
 
 app = Flask(__name__)  # Cria a aplicação Flask
+app.secret_key = 's3cr3t0'  # Chave secreta para sessões
 
 # Rota principal que exibe a lista de jogos
 @app.route('/')
@@ -35,6 +36,23 @@ def criar():
     lista.append(jogo)                    # Adiciona o novo jogo à lista
     #return render_template('lista.html', titulo='Jogos', jogos=lista)
     return redirect('/')  # Redireciona para a rota principal
+
+
+# Rota para exibir o formulário de login
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+# Rota para autenticar o usuário a partir do formulário de login
+@app.route('/autenticar', methods=['POST',])
+def autenticar():
+    if 'alohomora' == request.form['senha']:  # Verifica se a senha está correta
+        session['usuario_logado'] = request.form['usuario']  # Armazena o usuário na sessão
+        flash('Usuário logado com sucesso!')  # Mensagem de sucesso
+        return redirect('/')                  # Redireciona para a página principal
+    else:
+        flash('Usuário não logado, tente novamente!')          # Mensagem de erro
+        return redirect('/login')             # Redireciona de volta para o login
 
 app.run(debug=True)  # Executa a aplicação em modo debug
 
